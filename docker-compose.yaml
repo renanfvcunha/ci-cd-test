@@ -1,0 +1,7 @@
+version: '3'
+services:
+  app-example:
+    build: .
+    image: app-example
+    ports:
+    - 3050:3000

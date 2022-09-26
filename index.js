@@ -1,12 +1,10 @@
-import fastify from 'fastify'
+import express from 'express'
 import packageInfo from './package.json' assert { type: 'json' }
 
-const app = fastify()
+const app = express()
 
-app.get('/', async () => {
-  return { message: 'API Working!', version: packageInfo.version }
+app.get('/', (req, res) => {
+  return res.json({ message: 'API Working!', version: packageInfo.version })
 })
 
-app.listen({
-  port: 3000
-})
+app.listen(3000, () => console.log('Listening at 3000'))
