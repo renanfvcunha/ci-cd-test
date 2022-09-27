@@ -4,18 +4,12 @@ pipeline {
 
   stages {
 
-    stage("Build Docker Image") {
+    stage("Remove Current Container and Image") {
       steps {
-        echo "Building Docker Image..."
-        sh "docker build -t ci-cd-test:latest ."
-      }
-    }
-
-    stage("Remove Current Container") {
-      steps {
-        echo "Removing Current Container"
+        echo "Removing Current Container and Current Image..."
         sh '''if [ $( docker ps -a | grep ci-cd-test | wc -l ) -gt 0 ]; then
-          docker stop ci-cd-test && docker remove ci-cd-test
+          docker stop ci-cd-test && docker rm ci-cd-test
+          docker rmi ci-cd-test:latest
           echo "Containers stopped"
         else
           echo "No containers running found"
@@ -23,9 +17,16 @@ pipeline {
       }
     }
 
+    stage("Build Docker Image") {
+      steps {
+        echo "Building Docker Image..."
+        sh "docker build -t ci-cd-test:latest ."
+      }
+    }
+
     stage("Deploy") {
       steps {
-        echo "Deploying..."
+        echo "Running Container..."
         sh "docker run -p 80:3000 --name ci-cd-test -d ci-cd-test:latest"
       }
     }
