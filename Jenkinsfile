@@ -14,9 +14,14 @@ pipeline {
     stage("Remove Current Container") {
       steps {
         echo "Removing Current Container"
-        sh "if [ $( docker ps -a | grep ci-cd-test | wc -l ) -gt 0 ]; then
+        sh("""
+        if [ $( docker ps -a | grep ci-cd-test | wc -l ) -gt 0 ]; then
           docker stop ci-cd-test && docker remove ci-cd-test
-        fi"
+          echo "Containers stopped"
+        else
+          echo "No containers found"
+        fi
+        """)
       }
     }
 
