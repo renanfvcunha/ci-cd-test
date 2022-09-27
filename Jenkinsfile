@@ -27,7 +27,7 @@ pipeline {
     stage("Deploy") {
       steps {
         echo "Running container..."
-        sh "docker run -p 80:3000 --name ci-cd-test -d ci-cd-test:latest"
+        sh "docker run -p 80:3000 --name ci-cd-test --restart=always -d ci-cd-test:latest"
       }
     }
 
