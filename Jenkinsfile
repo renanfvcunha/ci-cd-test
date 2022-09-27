@@ -12,8 +12,10 @@ pipeline {
     }
 
     stage("Remove Current Container") {
-      echo "Removing Current Container"
-      sh "docker container ps -aq | xargs docker stop | xargs docker rm"
+      steps {
+        echo "Removing Current Container"
+        sh "docker container ps -aq | xargs docker stop | xargs docker rm"
+      }
     }
 
     stage("Deploy") {
