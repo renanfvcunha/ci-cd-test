@@ -14,6 +14,7 @@ pipeline {
     stage("Tag Docker Image") {
       steps {
         echo "Tagging Docker Image..."
+        sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 000055091584.dkr.ecr.us-east-1.amazonaws.com"
       }
     }
 
