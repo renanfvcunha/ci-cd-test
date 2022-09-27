@@ -14,7 +14,7 @@ pipeline {
     stage("Remove Current Container") {
       steps {
         echo "Removing Current Container"
-        sh "docker container ps -aq | xargs docker stop | xargs docker rm"
+        sh "docker stop ci-cd-test && docker remove ci-cd-test"
       }
     }
 
