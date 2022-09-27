@@ -19,7 +19,8 @@ pipeline {
           echo "Containers stopped" \
         else \
           echo "No containers found" \
-        fi""")
+        fi \
+        """)
       }
     }
 
